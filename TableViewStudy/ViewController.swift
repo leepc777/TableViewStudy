@@ -10,6 +10,13 @@ import UIKit
 
 class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
+    let colorSet = [["Section 0","Gold","Blue"],["Section 1","red","green","yellow"],["Section 3","grey","pink"]]
+    
+    let sectionHeader = ["this is section 0","this is section 1","this is section 2"]
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionHeader[section]
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -17,25 +24,21 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     func numberOfSections(in tableView: UITableView) -> Int {
         
         print("DataSource is \(tableView.dataSource) and Delegate is \(tableView.delegate)")
-        return 2
+        return colorSet.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableView.dataSource = self
-        tableView.delegate = self
         print("the current section \(section)")
-        return 20
+        return colorSet[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.dataSource = self
-        tableView.delegate = self
 
         print(" indexPath is \(indexPath) and the row is \(indexPath.row)")
 
 //        return UITableViewCell()
         let tableViewCell = UITableViewCell()
-        tableViewCell.textLabel?.text = " indexPath is \(indexPath) and row is \(indexPath.row)"
+        tableViewCell.textLabel?.text = " indexPath:\(indexPath) row:\(indexPath.row) \(colorSet[indexPath.section][indexPath.row])"
         return tableViewCell
     }
 }
